@@ -46,6 +46,7 @@ export class FlashCard extends React.Component {
         <Content>
           <Card>
             <CardItem
+              style={styles.card}
               button
               onPress={() => {
                 this.setState(previousState => {
@@ -63,7 +64,7 @@ export class FlashCard extends React.Component {
               }}
             >
               <Body>
-                <Text>
+                <Text style={styles.cardText}>
                   {cards[this.state.cardToShow][this.state.textToShow]}
                 </Text>
               </Body>
@@ -80,3 +81,18 @@ export default class App extends React.Component {
     return <FlashCard />;
   }
 }
+
+const styles = StyleSheet.create({
+  card: {
+    flex: 1,
+    marginTop: 30,
+    marginBottom: 30,
+    justifyContent: "center"
+  },
+  cardText: {
+    color: "darkgray",
+    fontWeight: "bold",
+    fontSize: 30,
+    alignSelf: "center"
+  }
+});
