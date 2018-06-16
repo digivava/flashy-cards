@@ -35,7 +35,6 @@ export class FlashCard extends React.Component {
     super();
 
     this.state = {
-      cardToShow: 0,
       flipped: false
     };
   }
@@ -53,7 +52,11 @@ export class FlashCard extends React.Component {
           }}
         >
           <Body>
-            <Text style={styles.cardText}>{this.state.flipped.toString()}</Text>
+            <Text style={styles.cardText}>
+              {this.state.flipped
+                ? cardsData[this.props.cardToShow]["backSideText"]
+                : cardsData[this.props.cardToShow]["frontSideText"]}
+            </Text>
           </Body>
         </CardItem>
       </Card>
@@ -69,12 +72,14 @@ export class Deck extends React.Component {
         <View>
           <Swiper
             cards={cardsData}
-            renderCard={card => (
+            renderCard={(card, index) => (
               <FlashCard
                 frontSideText={card.frontSideText}
                 backSideText={card.backSideText}
+                cardToShow={index}
               />
             )}
+            verticalSwipe={false}
           />
         </View>
       </Container>
