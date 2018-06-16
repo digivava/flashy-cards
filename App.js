@@ -31,12 +31,8 @@ const cardsData = [
 ];
 
 export class FlashCard extends React.Component {
-  constructor(props) {
-    super();
-
-    this.state = {
-      flipped: false
-    };
+  state = {
+    flipped: false
   }
 
   render() {
@@ -68,7 +64,6 @@ export class Deck extends React.Component {
   render() {
     return (
       <Container>
-        <Header />
         <View>
           <Swiper
             cards={cardsData}
@@ -80,6 +75,7 @@ export class Deck extends React.Component {
               />
             )}
             verticalSwipe={false}
+            stackSize={3}
           />
         </View>
       </Container>
@@ -95,10 +91,7 @@ export default class App extends React.Component {
 
 const styles = StyleSheet.create({
   card: {
-    flex: 1,
-    marginTop: 30,
-    marginBottom: 30,
-    justifyContent: "center"
+    marginTop: 30
   },
   cardText: {
     color: "darkgray",
