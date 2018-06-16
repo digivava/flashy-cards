@@ -34,7 +34,6 @@ export class FlashCard extends React.Component {
 
     this.state = {
       cardToShow: 0,
-      textToShow: "frontSideText",
       flipped: false
     };
   }
@@ -52,20 +51,13 @@ export class FlashCard extends React.Component {
                 this.setState(previousState => {
                   return { flipped: !previousState.flipped };
                 });
-                if (this.state.flipped) {
-                  this.setState(() => {
-                    return { textToShow: "backSideText" };
-                  });
-                } else {
-                  this.setState(() => {
-                    return { textToShow: "frontSideText" };
-                  });
-                }
               }}
             >
               <Body>
                 <Text style={styles.cardText}>
-                  {cards[this.state.cardToShow][this.state.textToShow]}
+                  {this.state.flipped
+                    ? cards[this.state.cardToShow]["backSideText"]
+                    : cards[this.state.cardToShow]["frontSideText"]}
                 </Text>
               </Body>
             </CardItem>
