@@ -1,5 +1,5 @@
 import React from "react";
-import { StyleSheet, View } from "react-native";
+import { StyleSheet } from "react-native";
 import {
   Container,
   Header,
@@ -7,7 +7,9 @@ import {
   Card,
   CardItem,
   Body,
-  Text
+  Text,
+  View,
+  DeckSwiper
 } from "native-base";
 
 const cards = [
@@ -40,29 +42,45 @@ export class FlashCard extends React.Component {
 
   render() {
     return (
+      <Card>
+        <CardItem
+          style={styles.card}
+          button
+          onPress={() => {
+            this.setState(previousState => {
+              return { flipped: !previousState.flipped };
+            });
+          }}
+        >
+          <Body>
+            <Text style={styles.cardText}>
+              {this.state.flipped
+                ? this.props.backSideText
+                : this.props.frontSideText}
+            </Text>
+          </Body>
+        </CardItem>
+      </Card>
+    );
+  }
+}
+
+export class Deck extends React.Component {
+  render() {
+    return (
       <Container>
         <Header />
-        <Content>
-          <Card>
-            <CardItem
-              style={styles.card}
-              button
-              onPress={() => {
-                this.setState(previousState => {
-                  return { flipped: !previousState.flipped };
-                });
-              }}
-            >
-              <Body>
-                <Text style={styles.cardText}>
-                  {this.state.flipped
-                    ? cards[this.state.cardToShow]["backSideText"]
-                    : cards[this.state.cardToShow]["frontSideText"]}
-                </Text>
-              </Body>
-            </CardItem>
-          </Card>
-        </Content>
+        <View>
+          <DeckSwiper
+            dataSource={cards}
+            renderItem={item => (
+              <FlashCard
+                frontSideText={item.frontSideText}
+                backSideText={item.backSideText}
+              />
+            )}
+          />
+        </View>
       </Container>
     );
   }
@@ -70,7 +88,7 @@ export class FlashCard extends React.Component {
 
 export default class App extends React.Component {
   render() {
-    return <FlashCard />;
+    return <Deck />;
   }
 }
 
