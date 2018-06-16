@@ -8,11 +8,11 @@ import {
   CardItem,
   Body,
   Text,
-  View,
-  DeckSwiper
+  View
 } from "native-base";
+import Swiper from "react-native-deck-swiper";
 
-const cards = [
+const cardsData = [
   {
     id: 0,
     frontSideText: "大きい",
@@ -31,7 +31,7 @@ const cards = [
 ];
 
 export class FlashCard extends React.Component {
-  constructor() {
+  constructor(props) {
     super();
 
     this.state = {
@@ -53,11 +53,7 @@ export class FlashCard extends React.Component {
           }}
         >
           <Body>
-            <Text style={styles.cardText}>
-              {this.state.flipped
-                ? this.props.backSideText
-                : this.props.frontSideText}
-            </Text>
+            <Text style={styles.cardText}>{this.state.flipped.toString()}</Text>
           </Body>
         </CardItem>
       </Card>
@@ -71,12 +67,12 @@ export class Deck extends React.Component {
       <Container>
         <Header />
         <View>
-          <DeckSwiper
-            dataSource={cards}
-            renderItem={item => (
+          <Swiper
+            cards={cardsData}
+            renderCard={card => (
               <FlashCard
-                frontSideText={item.frontSideText}
-                backSideText={item.backSideText}
+                frontSideText={card.frontSideText}
+                backSideText={card.backSideText}
               />
             )}
           />
