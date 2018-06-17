@@ -1,5 +1,5 @@
 import React from "react";
-import { StyleSheet, Text, TouchableOpacity } from "react-native";
+import { StyleSheet, Text, TouchableHighlight } from "react-native";
 
 export class FlashCard extends React.Component {
   state = {
@@ -8,8 +8,9 @@ export class FlashCard extends React.Component {
 
   render() {
     return (
-      <TouchableOpacity
+      <TouchableHighlight
         style={styles.card}
+        underlayColor="white"
         onPress={() => {
           this.setState(previousState => {
             return { flipped: !previousState.flipped };
@@ -21,7 +22,7 @@ export class FlashCard extends React.Component {
             ? this.props.cardToShow["backSideText"]
             : this.props.cardToShow["frontSideText"]}
         </Text>
-      </TouchableOpacity>
+      </TouchableHighlight>
     );
   }
 }
