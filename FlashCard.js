@@ -1,5 +1,5 @@
 import React from "react";
-import { StyleSheet, Text, TouchableOpacity, View } from "react-native";
+import { StyleSheet, Text, TouchableOpacity } from "react-native";
 
 export class FlashCard extends React.Component {
   state = {
@@ -8,21 +8,20 @@ export class FlashCard extends React.Component {
 
   render() {
     return (
-      <View style={styles.card}>
-        <TouchableOpacity
-          onPress={() => {
-            this.setState(previousState => {
-              return { flipped: !previousState.flipped };
-            });
-          }}
-        >
-          <Text style={styles.cardText}>
-            {this.state.flipped
-              ? this.props.cardToShow["backSideText"]
-              : this.props.cardToShow["frontSideText"]}
-          </Text>
-        </TouchableOpacity>
-      </View>
+      <TouchableOpacity
+        style={styles.card}
+        onPress={() => {
+          this.setState(previousState => {
+            return { flipped: !previousState.flipped };
+          });
+        }}
+      >
+        <Text style={styles.cardText}>
+          {this.state.flipped
+            ? this.props.cardToShow["backSideText"]
+            : this.props.cardToShow["frontSideText"]}
+        </Text>
+      </TouchableOpacity>
     );
   }
 }
