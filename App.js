@@ -1,5 +1,5 @@
 import React from "react";
-import { StyleSheet, View, Text, TouchableHighlight } from "react-native";
+import { StyleSheet, View, Text, TouchableOpacity } from "react-native";
 import Swiper from "react-native-deck-swiper";
 
 const cardsData = [
@@ -28,7 +28,7 @@ export class FlashCard extends React.Component {
   render() {
     return (
       <View style={styles.card}>
-        <TouchableHighlight onPress={() => {
+        <TouchableOpacity onPress={() => {
           this.setState(previousState => {
             return { flipped: !previousState.flipped };
           });
@@ -38,7 +38,7 @@ export class FlashCard extends React.Component {
               ? cardsData[this.props.cardToShow]["backSideText"]
               : cardsData[this.props.cardToShow]["frontSideText"]}
           </Text>
-        </TouchableHighlight>
+        </TouchableOpacity>
       </View>
     )
   }
@@ -83,7 +83,8 @@ const styles = StyleSheet.create({
     borderRadius: 4,
     borderWidth: 2,
     borderColor: '#E8E8E8',
-    backgroundColor: 'white'
+    backgroundColor: 'white',
+    justifyContent: 'center'
   },
   cardText: {
     color: "darkgray",
