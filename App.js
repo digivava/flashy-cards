@@ -1,5 +1,5 @@
 import React from "react";
-import { StyleSheet, View, Text, TouchableOpacity } from "react-native";
+import { StyleSheet, View, Text, TouchableOpacity, Button } from "react-native";
 import Swiper from "react-native-deck-swiper";
 
 const cardsData = [
@@ -19,6 +19,16 @@ const cardsData = [
     backSideText: "ねこ"
   }
 ];
+
+export class AddCardButton extends React.Component {
+  addCard() {
+    alert("Adding a card!")
+  }
+
+  render() {
+    return (<Button style={styles.button} title="Add Card" accessibilityLabel="Add a card to your flashcard deck" onPress={this.addCard} />)
+  }
+}
 
 export class FlashCard extends React.Component {
   state = {
@@ -46,29 +56,36 @@ export class FlashCard extends React.Component {
 
 export class Deck extends React.Component {
 
+  // TODO: Add Redux to get FlashCard receiving from Swiper's onTapCard?
+
   render() {
     return (
-      <View style={styles.container}>
-        <Swiper
-          cards={cardsData}
-          renderCard={(card, index) => (
-            <FlashCard
-              frontSideText={card.frontSideText}
-              backSideText={card.backSideText}
-              cardToShow={index}
-            />
-          )}
-          verticalSwipe={false}
-          stackSize={3}
-        />
-      </View>
+      <Swiper
+        cards={cardsData}
+        renderCard={(card, index) => (
+          <FlashCard
+            frontSideText={card.frontSideText}
+            backSideText={card.backSideText}
+            cardToShow={index}
+          />
+        )}
+        verticalSwipe={false}
+        stackSize={3}
+      />
     );
   }
 }
 
 export default class App extends React.Component {
+  // TODO: Get button to show up on the bottom
+
   render() {
-    return <Deck />;
+    return (
+      <View style={styles.container}>
+        <Deck />
+        <AddCardButton />
+      </View>
+    )
   }
 }
 
@@ -91,5 +108,8 @@ const styles = StyleSheet.create({
     fontWeight: "bold",
     fontSize: 30,
     alignSelf: "center"
+  },
+  button: {
+
   }
 });
