@@ -1,7 +1,7 @@
 import React from "react";
 import { StyleSheet, View } from "react-native";
-import { AddCardButton } from "./AddCardButton";
 import { Deck } from "./Deck";
+import { Picker, Form, Icon } from "native-base"
 
 const defaultDeck = "nouns"
 
@@ -60,17 +60,35 @@ const decks = {
 };
 
 export default class App extends React.Component {
-  // TODO: Get button to show up on the bottom
-
   state = {
     deckName: defaultDeck
+  }
+
+  onValueChange(value) {
+    this.setState({
+      deckName: value
+    });
   }
 
   render() {
     return (
       <View style={styles.container}>
         <Deck cards={decks[this.state.deckName]} />
-        <AddCardButton />
+        <Form>
+          <Picker
+            mode="dropdown"
+            placeholder="Decks"
+            placeholderStyle={{ color: "black" }}
+            iosHeader="Choose Deck"
+            iosIcon={<Icon name="ios-arrow-down-outline" />}
+            style={styles.picker}
+            onValueChange={this.onValueChange.bind(this)}
+          >
+            <Picker.Item label="Adjectives" value="adjectives" />
+            <Picker.Item label="Nouns" value="nouns" />
+            <Picker.Item label="Verbs" value="verbs" />
+          </Picker>
+        </Form>
       </View>
     );
   }
@@ -80,5 +98,8 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: "#F5FCFF"
+  },
+  picker: {
+    alignSelf: "center"
   }
 });
