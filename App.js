@@ -100,6 +100,7 @@ const styles = StyleSheet.create({
     backgroundColor: "#F5FCFF"
   },
   picker: {
+    marginTop: 30,
     alignSelf: "center"
   }
 });
